@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FWI Prediction</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #000000, #434343);
+            color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            overflow: hidden;
+        }
+        .card {
+            background-color: #1a1a1a;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.6);
+            animation: slideIn 1s ease-out;
+        }
+        .card h1 {
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #ff5722;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #e64a19;
+        }
+        .form-control {
+            background-color: #2e2e2e;
+            color: white;
+            border: 1px solid #555;
+            border-radius: 10px;
+        }
+        .form-control:focus {
+            background-color: #3c3c3c;
+            border-color: #ff5722;
+            box-shadow: 0 0 5px rgba(255, 87, 34, 0.6);
+        }
+        .form-control::placeholder {
+            color: white; /* White placeholder text */
+            opacity: 0.7; /* Slight transparency for better contrast */
+        }
+        h2 {
+            color: #ff5722;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card p-5 mx-auto" style="max-width: 500px;">
+            <h1 class="text-center">FWI Prediction</h1>
+            <form action="{{ url_for('predict_datapoint') }}" method="post">
+                <input type="text" name="Temperature" class="form-control mb-3" placeholder="Temperature" required>
+                <input type="text" name="RH" class="form-control mb-3" placeholder="Relative Humidity (RH)" required>
+                <input type="text" name="Ws" class="form-control mb-3" placeholder="Wind Speed (Ws)" required>
+                <input type="text" name="Rain" class="form-control mb-3" placeholder="Rainfall" required>
+                <input type="text" name="FFMC" class="form-control mb-3" placeholder="Fine Fuel Moisture Code (FFMC)" required>
+                <input type="text" name="DMC" class="form-control mb-3" placeholder="Duff Moisture Code (DMC)" required>
+                <input type="text" name="ISI" class="form-control mb-3" placeholder="Initial Spread Index (ISI)" required>
+                <input type="text" name="Classes" class="form-control mb-3" placeholder="Classes (1 or 2)" required>
+                <input type="text" name="Region" class="form-control mb-3" placeholder="Region Code" required>
+                <button type="submit" class="btn btn-primary btn-block w-100 mt-3">Predict</button>
+            </form>
+            {% if result %}
+            <h2 class="text-center mt-4">The FWI Prediction is: <strong>{{ result }}</strong></h2>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
